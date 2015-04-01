@@ -1,0 +1,16 @@
+body {
+  padding-top: 60px;
+}
+
+.ng-cloak {
+  display: none;
+}
+
+.title-view {
+	margin-bottom: 20px;
+}
+
+.btn-group-toogle{
+	float: right;
+	margin-right: 20px;
+}

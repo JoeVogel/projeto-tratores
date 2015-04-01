@@ -1,0 +1,106 @@
+<h3 class="title-view">
+	<i class="glyphicon glyphicon-random"></i>
+	&nbsp;&nbsp;Análise
+</h3>
+<form role="form" class="ng-cloak">
+	<div class="row">
+		<div class="col-sm-6" ng-show="testtype.length > 0">
+			<div class="panel panel-default">
+  			<div class="panel-heading">Tipos de testes</div>
+  			<div class="panel-body">
+    			<div class="row">
+						<div class="col-sm-12">
+					 		<div class="form-group">
+					    	<label>Descrição</label>
+					    	<select class="form-control" ng-model="data.testtype" ng-if="testtype.length > 1">
+					    		<option ng-repeat="obj in testtype" value="{{$index}}">{{obj.description}}</option>
+					    	</select>
+					    	<input type="text" class="form-control" ng-model="testtype[data.testtype].description" ng-if="testtype.length == 1" ng-disabled="true">
+					  	</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6" ng-if="testtype.length > 0">
+					 		<div class="form-group">
+					    	<label>Tipo do teste</label>
+					    	<input type="text" class="form-control" ng-model="testtype[data.testtype].type" ng-disabled="true">
+					  	</div>
+						</div>
+						<div class="col-sm-6">
+					 		<div class="form-group">
+					    	<label>Tipo de terreno</label>
+					    	<input type="text" class="form-control" ng-model="testtype[data.testtype].terrain" ng-disabled="true">
+					  	</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+					 		<div class="form-group">
+					    	<label>Condição do tempo</label>
+					    	<input type="text" class="form-control" ng-model="testtype[data.testtype].weather" ng-disabled="true">
+					  	</div>
+						</div>
+						<div class="col-sm-6">
+					 		<div class="form-group">
+					    	<label>Duração</label>
+					    	<input type="text" class="form-control" ng-model="testtype[data.testtype].duration" ng-disabled="true">
+					  	</div>
+						</div>
+					</div>
+  			</div>
+			</div>
+		</div>
+		<div class="col-sm-6" ng-show="equipment.length > 0">
+			<div class="panel panel-default">
+  			<div class="panel-heading">Equipamento</div>
+  			<div class="panel-body">
+    			<div class="row">
+						<div class="col-sm-12">
+					 		<div class="form-group">
+					    	<label>Descrição</label>
+					    	<select class="form-control" ng-model="data.equipment" ng-if="equipment.length > 1">
+					    		<option ng-repeat="obj in equipment" value="{{$index}}">{{obj.description}}</option>
+					    	</select>
+					    	<input type="text" class="form-control" ng-model="equipment[data.equipment].description" ng-if="equipment.length == 1" ng-disabled="true">
+					  	</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+					 		<div class="form-group">
+					    	<label>Modelo</label>
+					    	<input type="text" class="form-control" ng-model="equipment[data.equipment].model" ng-disabled="true">
+					  	</div>
+						</div>
+						<div class="col-sm-6">
+					 		<div class="form-group">
+					    	<label>Ano</label>
+					    	<input type="text" class="form-control" ng-model="equipment[data.equipment].year" ng-disabled="true">
+					  	</div>
+						</div>
+					</div>
+  			</div>
+			</div>
+			<div class="form-group">
+	    	<div class="checkbox">
+    			<label>
+      			<input type="checkbox" ng-model="data.formulas">Utilizar fórmulas da última análise
+    			</label>
+  			</div>
+	  	</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+	 		<div class="form-group">
+	    	<label>Descrição</label>
+	    	<textarea type="text" class="form-control" ng-model="data.description" placeholder="Digite a descrição" rows="3"></textarea>
+	  	</div>
+		</div>
+	</div>
+	<div class="form-group">
+  	<button type="button" class="btn btn-success" ng-click="persist()" ng-disabled="testtype.length == 0 || equipment.length == 0">
+      <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Salvar
+    </button>
+  </div>
+</form>

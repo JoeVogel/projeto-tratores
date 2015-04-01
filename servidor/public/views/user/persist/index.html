@@ -1,0 +1,35 @@
+<h3 class="title-view">
+	<i class="glyphicon glyphicon-user"></i>
+	&nbsp;&nbsp;Usuário
+</h3>
+<form role="form" class="ng-cloak">
+	<div class="row">
+		<div class="col-sm-4">
+	 		<div class="form-group">
+	    	<label>Nome</label>
+	    	<input type="text" class="form-control" placeholder="Digite seu nome" ng-model="data.name" maxlength="60">
+	  	</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>Email</label>
+        <input type="text" class="form-control" placeholder="Digite seu email" ng-model="data.email" maxlength="100">
+      </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>Senha</label>
+				<input type="password" class="form-control" placeholder="Digite sua senha" ng-model="data.password">
+      </div>
+		</div>
+	</div>
+	<div class="form-group">
+  	<button type="button" class="btn btn-success" ng-click="persist()">
+      <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Salvar
+    </button>
+  </div>
+</form>

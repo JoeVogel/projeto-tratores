@@ -1,0 +1,37 @@
+<h3 class="title-view">
+	<i class="glyphicon glyphicon-align-justify"></i>
+	&nbsp;&nbsp;Tipos de testes
+</h3>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th>Tipo</th>
+					<th>Descrição</th>
+					<th>Terreno</th>
+					<th>Tempo</th>
+					<th>Duração</th>
+					<th class="text-center" style="width: 100px">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="obj in testtype">
+					<td>{{obj.type}}</td>
+					<td>{{obj.description}}</td>
+					<td>{{obj.terrain}}</td>
+					<td>{{obj.weather}}</td>
+					<td>{{obj.duration}}</td>
+					<td class="text-center" style="width: 100px">
+						<a type="button" class="btn btn-primary btn-xs" ng-href="#/typetest-persist/{{obj.id}}">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</a>
+						<button type="button" class="btn btn-danger btn-xs" ng-click="delete(obj.id, $index)">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

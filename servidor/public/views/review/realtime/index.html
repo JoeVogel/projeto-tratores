@@ -1,0 +1,85 @@
+<h3 class="title-view" ng-show="data.id">
+	<i class="glyphicon glyphicon-time"></i>
+	&nbsp;&nbsp;Tempo real
+</h3>
+<form role="form" class="ng-cloak" ng-show="data.id">
+	<div class="row">
+		<div class="col-sm-4">
+	 		<div class="form-group">
+	    	<label>Equipamento</label>
+	    	<input type="text" class="form-control" ng-model="data.Equipment.description" ng-disabled="true">
+	  	</div>
+		</div>
+		<div class="col-sm-4">
+	 		<div class="form-group">
+	    	<label>Tipo de teste</label>
+	    	<input type="text" class="form-control" ng-model="data.TestType.description" ng-disabled="true">
+	  	</div>
+		</div>
+		<div class="col-sm-4">
+	 		<button type="button" class="btn btn-success" ng-click="persist()" style="margin-top: 25px" ng-show="data.status == 0">
+      	<i class="glyphicon glyphicon-play"></i>&nbsp;&nbsp;Iniciar
+    	</button>
+    	<button type="button" class="btn btn-danger" ng-click="close()" style="margin-top: 25px" ng-show="data.status == 1">
+      	<i class="glyphicon glyphicon-stop"></i>&nbsp;&nbsp;Terminar
+    	</button>
+    	<button type="button" class="btn btn-warning" ng-click="cancel()" style="margin-top: 25px; margin-left: 20px" ng-show="data.status == 0">
+      	<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;Cancelar
+    	</button>
+		</div>
+	</div>
+  <div class="row" ng-show="data.status == 1">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Sensor</label>
+        <select class="form-control" ng-model="sensor">
+          <option value="0">Selecione</option>
+          <option ng-repeat="obj in sensors" value="{{obj.id}}">{{obj.description}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-success" ng-click="findData(data.id)" style="margin-top: 25px;" ng-disabled="sensor == 0">
+        <i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;Pesquisar
+      </button>
+      <button type="button" class="btn btn-primary" ng-click="findEquipment()" style="margin-top: 25px; margin-left: 20px">
+        <i class="glyphicon glyphicon-info-sign"></i>
+      </button>
+    </div>
+  </div>
+</form>
+<br>
+<div class="row" ng-repeat="obj in panels">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{obj.sensor.description}}
+        <button type="button" class="close" ng-click="closeSensorData($index)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="btn-group btn-group-toogle">
+          <button class="btn btn-default btn-xs" ng-click="setChar($index, 'LineChart')" ng-disabled="obj.type == 'LineChart'">Linha</button>
+          <button class="btn btn-default btn-xs" ng-click="setChar($index, 'ColumnChart')" ng-disabled="obj.type == 'ColumnChart'">Coluna</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div google-chart chart="obj"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title">{{messageTitle}}</h4>
+      </div>
+      <div class="modal-body text-center">
+        <img style="width: 150px;" class="hidden-xs" src="/img/loader.gif">
+      </div>
+      <div class="text-center" style="margin: 20px">
+        <h4 class="modal-title">{{message}}</h4>
+      </div>
+    </div>
+  </div>
+</div>

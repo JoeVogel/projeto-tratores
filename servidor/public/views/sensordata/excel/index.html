@@ -1,0 +1,29 @@
+<h3 class="title-view hidden-print">
+	<i class="glyphicon glyphicon-file"></i>
+	&nbsp;&nbsp;Excel
+</h3>
+<div class="row hidden-print">
+	<div class="col-sm-3">
+ 		<div class="form-group">
+    	<label>Equipamento</label>
+    	<select class="form-control" ng-model="data.equipment" ng-change="findReview(data.equipment)">
+				<option value="0">Selecione</option>
+				<option ng-repeat="obj in equipment" value="{{obj.id}}">{{obj.description}}</option>
+			</select>
+  	</div>
+	</div>
+	<div class="col-sm-3">
+ 		<div class="form-group">
+    	<label>Análise</label>
+    	<select class="form-control" ng-model="data.review" ng-disabled="data.equipment == 0">
+				<option value="0">Selecione</option>
+				<option ng-repeat="obj in review" value="{{obj.id}}">{{obj.TestType.description}} em {{obj.createdAt | date:'dd/MM/yyyy'}}</option>
+			</select>
+  	</div>
+	</div>
+	<div class="col-sm-3">
+ 		<a ng-href="/excel/review/{{data.review}}" class="btn btn-success" style="margin-top: 25px"  ng-click="createExcel(data.review)" ng-disabled="data.equipment == 0 || data.review == 0">
+    	<i class="glyphicon glyphicon-floppy-save"></i>&nbsp;&nbsp;Gerar Excel
+  	</a>
+	</div>
+</div>

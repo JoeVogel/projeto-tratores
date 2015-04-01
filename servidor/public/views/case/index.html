@@ -1,0 +1,31 @@
+<h3 class="title-view">
+	<i class="glyphicon glyphicon-hdd"></i>
+	&nbsp;&nbsp;Caixa
+</h3>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th class="text-center" style="width: 90px">Código</th>
+					<th>Mac Adress</th>
+					<th class="text-center" style="width: 100px">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="obj in case">
+					<td class="text-center" style="width: 90px">{{obj.id}}</td>
+					<td>{{obj.macAddress}}</td>
+					<td class="text-center" style="width: 100px">
+						<a type="button" class="btn btn-primary btn-xs" ng-href="#/case-persist/{{obj.id}}">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</a>
+						<button type="button" class="btn btn-danger btn-xs" ng-click="delete(obj.id, $index)">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,55 @@
+<h3 class="title-view">
+	<i class="glyphicon glyphicon-unchecked"></i>
+	&nbsp;&nbsp;Fórmula
+</h3>
+<form role="form" class="ng-cloak">
+	<div class="row">
+		<div class="col-sm-12" ng-show="review.length > 0">
+			<div class="panel panel-default">
+  			<div class="panel-heading">Análise</div>
+  			<div class="panel-body">
+    			<div class="row">
+						<div class="col-sm-4">
+					 		<div class="form-group">
+					    	<label>Descrição</label>
+					    	<select class="form-control" ng-model="data.review" ng-change="findFormulas(review[data.review].id)">
+					    		<option ng-repeat="obj in review" value="{{$index}}">{{obj.description}}</option>
+					    	</select>
+					  	</div>
+						</div>
+						<div class="col-sm-4" ng-if="review.length > 0">
+					 		<div class="form-group">
+					    	<label>Equipamento</label>
+					    	<input type="text" class="form-control" ng-model="review[data.review].Equipment.description" ng-disabled="true">
+					  	</div>
+						</div>
+						<div class="col-sm-4">
+					 		<div class="form-group">
+					    	<label>Tipo de teste</label>
+					    	<input type="text" class="form-control" ng-model="review[data.review].TestType.description" ng-disabled="true">
+					  	</div>
+						</div>
+					</div>
+  			</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-show="search == true">
+		<div class="col-sm-12 text-center">
+	 		<img style="width: 50px; margin-top: 20px;" class="hidden-xs" src="/img/loader.gif">
+	  </div>
+	</div>
+	<div class="row" ng-show="search == false">
+		<div class="col-sm-6" ng-repeat="obj in sensor">
+	 		<div class="form-group">
+	    	<label>{{obj.description}}</label>
+	    	<textarea type="text" class="form-control" ng-model="obj.formula" placeholder="Digite a fórmula" rows="3" style="resize: none" ng-keypress="obj.status = true" ng-keydown="obj.status = true"></textarea>
+	  	</div>
+			<div class="form-group">
+	  		<button type="button" class="btn btn-success" ng-click="persist(obj.id, obj.idFormula, obj.formula, $index)" ng-disabled="obj.status == false">
+	      	<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Salvar
+	    	</button>
+	  	</div>
+	  </div>
+	</div>
+</form>

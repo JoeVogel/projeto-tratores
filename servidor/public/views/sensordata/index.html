@@ -1,0 +1,58 @@
+<h3 class="title-view">
+	<i class="glyphicon glyphicon-random"></i>
+	&nbsp;&nbsp;Análise
+</h3>
+<div class="row">
+	<div class="col-sm-3">
+ 		<div class="form-group">
+    	<label>Equipamento</label>
+    	<select class="form-control" ng-model="data.equipment" ng-change="findReview(data.equipment)">
+				<option value="0">Selecione</option>
+				<option ng-repeat="obj in equipment" value="{{obj.id}}">{{obj.description}}</option>
+			</select>
+  	</div>
+	</div>
+	<div class="col-sm-3">
+ 		<div class="form-group">
+    	<label>Análise</label>
+    	<select class="form-control" ng-model="data.review" ng-disabled="data.equipment == 0" ng-change="findSensor(data.review)">
+				<option value="0">Selecione</option>
+				<option ng-repeat="obj in review" value="{{obj.id}}">{{obj.TestType.description}} em {{obj.createdAt | date:'dd/MM/yyyy'}}</option>
+			</select>
+  	</div>
+	</div>
+	<div class="col-sm-3">
+ 		<div class="form-group">
+    	<label>Sensor</label>
+    	<select class="form-control" ng-model="data.sensor" ng-disabled="data.equipment == 0 || data.review == 0">
+				<option value="0">Selecione</option>
+				<option ng-repeat="obj in sensor" value="{{obj.id}}">{{obj.description}}</option>
+			</select>
+  	</div>
+	</div>
+	<div class="col-sm-3">
+ 		<button type="button" class="btn btn-success" style="margin-top: 25px"  ng-click="findData()" ng-disabled="data.equipment == 0 || data.review == 0 || data.sensor == 0">
+    	<i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;Pesquisar
+  	</button>
+	</div>
+</div>
+<br>
+<div class="row" ng-repeat="obj in panels">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		  	{{obj.sensor.description}}
+		  	<button type="button" class="close" ng-click="closeSensorData($index)">
+		  		<span aria-hidden="true">&times;</span>
+		  	</button>
+		  	<div class="btn-group btn-group-toogle">
+					<button class="btn btn-default btn-xs" ng-click="setChar($index, 'LineChart')" ng-disabled="obj.type == 'LineChart'">Linha</button>
+					<button class="btn btn-default btn-xs" ng-click="setChar($index, 'ColumnChart')" ng-disabled="obj.type == 'ColumnChart'">Coluna</button>
+				</div>
+		  </div>
+		  <div class="panel-body">
+		    <div google-chart chart="obj"></div>
+		  </div>
+		</div>
+	</div>
+</div>
