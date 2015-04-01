@@ -4,6 +4,7 @@
 #include "Thermocouple.h"
 #include "Pitot.h"
 #include "HX711.h"
+#include "FreqMeasure.h"
 
 /*
 *	dunkel.ino
@@ -67,6 +68,10 @@ unsigned long lastFuelInValue		= 0;
 unsigned long previousFuelOutValue	= 0;
 unsigned long lastFuelOutValue		= 0;
 
+//Frequency handlers
+double frequencyReadSum				= 0;
+int frequencyReadsCount				= 0;
+
 char incomingFlag; 											//Flag received from cordinator
 boolean canSend 					= false;				//Responsable for the working status
 unsigned long packageCounter		= 0; 
@@ -101,6 +106,7 @@ void setup()
 	configureInterruptions();
 	scale.set_scale(2280.f);
   	scale.tare(); 
+  	FreqMeasure.begin();//port for use in Arduino Mega is digital 49
 }
 
 /*
@@ -120,11 +126,19 @@ void loop()
 {
 	verifyStartCommand();
 
+	if (FreqMeasure.available()) 
+	{
+		frequencyReadSum += FreqMeasure.read();
+		frequencyReadsCount ++; 
+	}
+
 	if(canSend && myTimer())
 	{
 
 		sendPackage();
-		lastTimeSended = timeToSend;
+		lastTimeSended		= timeToSend;
+		frequencyReadsCount	= 0;
+		frequencyReadSum	= 0;
 
 	}
 }
@@ -171,6 +185,8 @@ void verifyStartCommand()
 			previousEncoderValue 	= 0;
 			previousFuelInValue 	= 0;
 			previousFuelOutValue	= 0;
+			frequencyReadSum		= 0;
+			frequencyReadsCount		= 0;
 			encoder.initPulseCounter();
 			fluxometerFuelIn.initPulseCounter();
 			fluxometerFuelOut.initPulseCounter();	
@@ -253,6 +269,8 @@ String fillDataInPackage(String package)
 
 	int scaleValue = (int)scale.get_units();
 
+	int frequency = (int)(FreqMeasure.countToFrequency(frequencyReadSum / frequencyReadsCount) * 1000);
+
 	package.concat(MAC);
 	package.concat(";");
 	package.concat(String(timeToSend, HEX));
@@ -278,6 +296,8 @@ String fillDataInPackage(String package)
 	package.concat(String(engineAirFlow.read(), HEX));
 	package.concat(";");
 	package.concat(String(scaleValue, HEX));
+	package.concat(";");
+	package.concat(String(frequency, HEX));
 
 	return package;
 
